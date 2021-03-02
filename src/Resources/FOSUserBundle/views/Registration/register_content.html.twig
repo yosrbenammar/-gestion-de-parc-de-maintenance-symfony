@@ -1,0 +1,11 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+   {% if is_granted('ROLE_SUPER_ADMIN')%}
+{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+    {{ form_widget(form) }}
+       {{ form_row(form.userRoles) }}
+    <div>
+        <input type="submit" class="btn btn-sm btn-primary" value="{{ 'registration.submit'|trans }}" />
+    </div>
+{{ form_end(form) }}
+{% endif %}

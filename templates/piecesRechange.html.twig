@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<!--[if IE 9]>         <html class="no-js lt-ie10" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+
+    <link rel="apple-touch-icon" href="{{ asset('asset/img/icon57.png') }}" sizes="57x57">
+    <link rel="apple-touch-icon" href="{{ asset('asset/img/icon72.png') }}" sizes="72x72">
+    <link rel="apple-touch-icon" href="{{ asset('asset/img/icon76.png') }}" sizes="76x76">
+    <link rel="apple-touch-icon" href="{{ asset('asset/img/icon114.png') }}" sizes="114x114">
+    <link rel="apple-touch-icon" href="{{ asset('asset/img/icon120.png') }}" sizes="120x120">
+    <link rel="apple-touch-icon" href="{{ asset('asset/img/icon144.png') }}" sizes="144x144">
+    <link rel="apple-touch-icon" href="{{ asset('asset/img/icon152.png') }}" sizes="152x152">
+    <link rel="apple-touch-icon" href="{{ asset('asset/img/icon180.png') }}" sizes="180x180">
+    <!-- END Icons -->
+
+    <!-- Stylesheets -->
+    {% block stylesheets %}
+        <!-- Stylesheets -->
+        <!-- Bootstrap is included in its original form, unaltered -->
+        <link rel="stylesheet" href="{{ asset('asset/css/bootstrap.min.css') }}">
+
+        <!-- Related styles of various icon packs and plugins -->
+        <link rel="stylesheet" href="{{ asset('asset/css/plugins.css') }}">
+
+        <!-- The main stylesheet of this template. All Bootstrap overwrites are defined in here -->
+        <link rel="stylesheet" href="{{ asset('asset/css/main.css') }}">
+
+        <!-- Include a specific file here from css/themes/ folder to alter the default theme of the template -->
+
+        <!-- The themes stylesheet of this template (for using specific theme color in individual elements - must included last) -->
+        <link rel="stylesheet" href="{{ asset('asset/css/themes.css') }}">
+        <!-- END Stylesheets -->
+        <!-- Modernizr (browser feature detection library) -->
+        <script src="{{ asset('asset/js/vendor/modernizr.min.js')}}"></script>
+        <style>
+            /* Popup container */
+            .popup {
+                position: relative;
+                display: inline-block;
+                cursor: pointer;
+            }
+
+            /* The actual popup (appears on top) */
+            .popup .popuptext {
+                visibility: hidden;
+                width: 160px;
+                background-color: #c2c8cf;
+                color: #4cae4c;
+                text-align: center;
+                border-radius: 6px;
+                padding: 8px 0;
+                position: absolute;
+                z-index: 1;
+                bottom: 125%;
+                left: 50%;
+                margin-left: -80px;
+            }
+
+            /* Popup arrow */
+            .popup .popuptext::after {
+                content: "";
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                margin-left: -5px;
+                border-width: 5px;
+                border-style: solid;
+                border-color: #555 transparent transparent transparent;
+            }
+
+            /* Toggle this class when clicking on the popup container (hide and show the popup) */
+            .popup .show {
+                visibility: visible;
+                -webkit-animation: fadeIn 1s;
+                animation: fadeIn 1s
+            }
+
+            /* Add animation (fade in the popup) */
+            @-webkit-keyframes fadeIn {
+                from {opacity: 0;}
+                to {opacity: 1;}
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
+            #edit{
+                margin-left: 50px;
+
+            }
+
+
+        </style>
+
+
+
+    {% endblock %}
+
+
+</head>
+
+<body>
+
+<div id="page-wrapper">
+
+
+
+    <div id="page-container" class="sidebar-partial sidebar-visible-lg sidebar-no-animations">
+        <!-- Alternative Sidebar -->
+        <div id="sidebar-alt">
+            <!-- Wrapper for scrolling functionality -->
+            <div id="sidebar-alt-scroll">
+                <!-- Sidebar Content -->
+                <div class="sidebar-content">
+
+
+                    <!-- Messages -->
+                    <a href="page_ready_inbox.html" class="sidebar-title">
+                        <i class="fa fa-envelope pull-right"></i> <strong>Messages</strong>UI (5)
+                    </a>
+                    <div class="sidebar-section">
+                        <div class="alert alert-alt">
+                            Debra Stanley<small class="pull-right">just now</small><br>
+                            <a href="page_ready_inbox_message.html"><strong>New Follower</strong></a>
+                        </div>
+                        <div class="alert alert-alt">
+                            Sarah Cole<small class="pull-right">2 min ago</small><br>
+                            <a href="page_ready_inbox_message.html"><strong>Your subscription was updated</strong></a>
+                        </div>
+                        <div class="alert alert-alt">
+                            Bryan Porter<small class="pull-right">10 min ago</small><br>
+                            <a href="page_ready_inbox_message.html"><strong>A great opportunity</strong></a>
+                        </div>
+                        <div class="alert alert-alt">
+                            Jose Duncan<small class="pull-right">30 min ago</small><br>
+                            <a href="page_ready_inbox_message.html"><strong>Account Activation</strong></a>
+                        </div>
+                        <div class="alert alert-alt">
+                            Henry Ellis<small class="pull-right">40 min ago</small><br>
+                            <a href="page_ready_inbox_message.html"><strong>You reached 10.000 Followers!</strong></a>
+                        </div>
+                    </div>
+                    <!-- END Messages -->
+                </div>
+                <!-- END Sidebar Content -->
+            </div>
+            <!-- END Wrapper for scrolling functionality -->
+        </div>
+        <!-- END Alternative Sidebar -->
+
+        <!-- Main Sidebar -->
+        <div id="sidebar">
+            <!-- Wrapper for scrolling functionality -->
+            <div id="sidebar-scroll">
+                <!-- Sidebar Content -->
+                <div class="sidebar-content">
+                    <!-- Brand -->
+
+                    <!-- END Brand -->
+
+                    <!-- User Info -->
+                    <div class="sidebar-section sidebar-user clearfix sidebar-nav-mini-hide">
+                        <div class="sidebar-user-avatar">
+                            <a href="page_ready_user_profile.html">
+                                <img src="{{  asset('asset/img/placeholders/avatars/avatar2.jpg')}}" alt="avatar">
+                            </a>
+                        </div>
+                        {% if is_granted('ROLE_USER') %}
+                            <div class="sidebar-user-name">{{ app.user.username }}</div>
+                        {% endif %}
+                        <div class="sidebar-user-links">
+                            <a href="page_ready_user_profile.html" data-toggle="tooltip" data-placement="bottom" title="Profile"><i class="gi gi-user"></i></a>
+                            <a href="page_ready_inbox.html" data-toggle="tooltip" data-placement="bottom" title="Messages"><i class="gi gi-envelope"></i></a>
+                            <!-- Opens the user settings modal that can be found at the bottom of each page (page_footer.html in PHP version) -->
+                            <a href="javascript:void(0)" class="enable-tooltip" data-placement="bottom" title="Settings" onclick="$('#modal-user-settings').modal('show');"><i class="gi gi-cogwheel"></i></a>
+                            <a href="{{ path("fos_user_security_login") }}" data-toggle="tooltip" data-placement="bottom" title="Logout"><i class="gi gi-exit"></i></a>
+                        </div>
+                    </div>
+                    <!-- END User Info -->
+
+                    <!-- Theme Colors -->
+                    <!-- Change Color Theme functionality can be found in js/app.js - templateOptions() -->
+                    <ul class="sidebar-section sidebar-themes clearfix sidebar-nav-mini-hide">
+
+                        <li>
+                            <a href="javascript:void(0)" class="themed-background-dark-night themed-border-night" data-theme="{{ asset('asset/css/themes/night.css') }}" data-toggle="tooltip" title="Night"></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" class="themed-background-dark-amethyst themed-border-amethyst" data-theme="{{ asset('asset/css/themes/amethyst.css') }}" data-toggle="tooltip" title="Amethyst"></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" class="themed-background-dark-modern themed-border-modern" data-theme="{{ asset('asset/css/themes/modern.css')}}" data-toggle="tooltip" title="Modern"></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" class="themed-background-dark-autumn themed-border-autumn" data-theme="{{ asset('asset/css/themes/autumn.css')}}" data-toggle="tooltip" title="Autumn"></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" class="themed-background-dark-flatie themed-border-flatie" data-theme="{{ asset('asset/css/themes/flatie.css') }}" data-toggle="tooltip" title="Flatie"></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" class="themed-background-dark-spring themed-border-spring" data-theme="{{ asset('asset/themes/spring.css')}}" data-toggle="tooltip" title="Spring"></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" class="themed-background-dark-fancy themed-border-fancy" data-theme="{{ asset('asset/css/themes/fancy.css') }}" data-toggle="tooltip" title="Fancy"></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" class="themed-background-dark-fire themed-border-fire" data-theme="{{ asset('asset/css/themes/fire.css')}}" data-toggle="tooltip" title="Fire"></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" class="themed-background-dark-coral themed-border-coral" data-theme="{{ asset('asset/css/themes/coral.css')}}" data-toggle="tooltip" title="Coral"></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" class="themed-background-dark-lake themed-border-lake" data-theme="{{ asset('asset/css/themes/lake.css')}}" data-toggle="tooltip" title="Lake"></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" class="themed-background-dark-forest themed-border-forest" data-theme="{{ asset('asset/css/themes/forest.css')}}" data-toggle="tooltip" title="Forest"></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" class="themed-background-dark-waterlily themed-border-waterlily" data-theme="{{ asset('asset/css/themes/waterlily.css')}}" data-toggle="tooltip" title="Waterlily"></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" class="themed-background-dark-emerald themed-border-emerald" data-theme="{{ asset('asset/css/themes/emerald.css')}}" data-toggle="tooltip" title="Emerald"></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" class="themed-background-dark-blackberry themed-border-blackberry" data-theme="{{ asset('asset/css/themes/blackberry.css')}}" data-toggle="tooltip" title="Blackberry"></a>
+                        </li>
+                    </ul>
+                    <!-- END Theme Colors -->
+
+                    <!-- Sidebar Navigation -->
+                    <ul class="sidebar-nav">
+                        <li>
+                            <a href="index.html" class=" active"><i class="gi gi-stopwatch sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Dashboard</span></a>
+                        </li>
+
+
+                        <li class="sidebar-header">
+                            <span class="sidebar-header-options clearfix"><a href="javascript:void(0)" data-toggle="tooltip" title="Quick Settings"><i class="gi gi-settings"></i></a><a href="javascript:void(0)" data-toggle="tooltip" title="Create the most amazing pages with the widget kit!"><i class="gi gi-lightbulb"></i></a></span>
+                            <span class="sidebar-header-title">Widget Kit</span>
+                        </li>
+                        <li>
+                            <a href="{{ path('fos_user_registration_register') }}"><i class="gi gi-charts sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Compte utilisateur</span></a>
+                        </li>
+
+                        <li class="sidebar-header">
+                            <span class="sidebar-header-options clearfix"><a href="javascript:void(0)" data-toggle="tooltip" title="Quick Settings"><i class="gi gi-certificate"></i></a></span>
+                            <span class="sidebar-header-title">Ressource</span>
+                        </li>
+                        <li>
+                            <a href="#" class="sidebar-nav-menu"><i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="fa fa-users  sidebar-nav-icon"></i>
+                                <span class="sidebar-nav-mini-hide">Ressource Humaine</span></a>
+                            <ul>
+                                <li>
+                                    <a href="#" class="sidebar-nav-submenu open"><i class="fa fa-user sidebar-nav-icon"></i><i class=" fa fa-angle-left sidebar-nav-indicator  "></i>Employé</a>
+
+                                    <ul>
+
+                                        <li> <a href="#" class="sidebar-nav-submenu open"><i class="fa fa-user sidebar-nav-icon"></i><i class=" fa fa-angle-left sidebar-nav-indicator  "></i>Technicien</a>
+                                            <ul>
+                                                <li>
+                                                    <a href="{{ path('technicien_ajouter_modifier') }}"><i class="fa fa-plus-square-o sidebar-nav-icon"></i> ajouter technicien</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ path('list_employes') }}"><i class="fa fa-list-alt sidebar-nav-icon"></i>  Techniciens</a>
+                                                </li>
+
+                                            </ul>
+
+                                        <li> <a href="#" class="sidebar-nav-submenu open"><i class="fa fa-user sidebar-nav-icon"></i><i class=" fa fa-angle-left sidebar-nav-indicator  "></i>Magasinier</a>
+                                            <ul>
+                                                <li>
+                                                    <a href="{{ path('magasinier_ajouter_modifier') }}"><i class="fa fa-plus-square-o sidebar-nav-icon"></i> ajoutee Magasinier</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ path('list_magasinier') }}"><i class="fa fa-list-alt sidebar-nav-icon"></i>  Magasiniers</a>
+                                                </li>
+                                            </ul>
+
+                                    </ul>
+                                </li>
+                                </li>
+                                <li>
+                                    <a href="#" class="sidebar-nav-submenu open"><i class="gi gi-old_man sidebar-nav-icon"></i><i class=" fa fa-angle-left sidebar-nav-indicator  "></i>Fournisseur</a>
+
+                                    <ul>
+
+                                        <li>
+                                            <a href="{{ path('ajouter_fournisseur') }}"><i class="fa fa-plus-square-o sidebar-nav-icon"></i> Ajouter Fournisseur</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('fournisseurs') }}"><i class="fa fa-list-alt sidebar-nav-icon"></i>  Fournisseurs</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#" class="sidebar-nav-submenu open"><i class="fa fa-user-secret sidebar-nav-icon"></i><i class=" fa fa-angle-left sidebar-nav-indicator  "></i>Sous Traitant </a>
+
+                                    <ul>
+
+                                        <li>
+                                            <a href="{{ path('ajouter_sousTraitant') }}"><i class="fa fa-plus-square-o sidebar-nav-icon"></i> Ajouter Sous Traitant</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('sousTraitants') }}"><i class="fa fa-list-alt sidebar-nav-icon"></i>  Sous Traitants</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+
+                        </li>
+                        <li>
+                            <a href="#" class="sidebar-nav-menu"><i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="gi gi-cargo sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Machine </span></a>
+                            <ul>
+
+                                <li>
+                                    <a href="{{ path('ajouter_machine') }}"> <i class="fa fa-plus-square-o sidebar-nav-icon"></i> Ajouter Machine</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('machines')}}"><i class="fa fa-list-alt sidebar-nav-icon"></i>Machines</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="sidebar-nav-submenu open"><i class="fa fa-circle sidebar-nav-icon"></i><i class=" fa fa-angle-left sidebar-nav-indicator  "></i>Famille  </a>
+
+                                    <ul>
+
+                                        <li>
+                                            <a href="{{ path('ajouter_famille')}}"><i class="fa fa-plus-square-o sidebar-nav-icon"></i> Ajouter Famille </a>
+                                        </li>
+                                        <li><a href="{{ path('familles')}}"> <i class="fa fa-list-alt  sidebar-nav-icon"></i>Familles</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#" class="sidebar-nav-submenu open"><i class="fa fa-circle-o sidebar-nav-icon"></i><i class=" fa fa-angle-left sidebar-nav-indicator  "></i> Sous Famille  </a>
+
+                                    <ul>
+                                        <li><a href="{{ path('ajouter_sousfamille')}}"><i class="fa fa-plus-square-o sidebar-nav-icon"></i>Ajouter Sous Famille</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('sousfamilles')}}"> <i class="fa fa-list-alt sidebar-nav-icon"></i>Sous Familles</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="sidebar-nav-menu"><i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="gi gi-building sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Emplacement
+                                </span></a>
+                            <ul>
+
+                                <li>
+                                    <a href="{{ path('ajouter_emplacement')}}"><i class="fa fa-plus-square-o sidebar-nav-icon"></i>Ajouter Emplacement</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('emplacements')}}"><i class="fa fa-list-alt sidebar-nav-icon"></i>Emplacements</a></a>
+                                </li>
+
+
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="sidebar-nav-menu"><i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="fa fa-automobile sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Moyen de Transport</span></a>
+                            <ul>
+                                <li>
+                                    <a href="{{ path('ajouter_vehicule')}}"><i class="fa fa-plus-square-o sidebar-nav-icon"></i>Ajouter Vehicule</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('vehicules')}}"><i class="fa fa-list-alt sidebar-nav-icon"></i>Vehicules</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-header">
+                            <span class="sidebar-header-options clearfix"><a href="javascript:void(0)" data-toggle="tooltip" title="Quick Settings"><i class="gi gi-settings"></i></a></span>
+                            <span class="sidebar-header-title">maintemance</span>
+                        </li>
+                        <li>
+                            <a href="#" class="sidebar-nav-menu"><i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="fa fa-gears sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Piéce Rechange</span></a>
+                            <ul>
+                                <li>
+                                    <a href="{{ path('ajouter_pieceRechange')}}"><i class="fa fa-plus-square-o sidebar-nav-icon"></i>Ajouter Piéce </a>
+                                </li>
+                                <li>  <a href="{{ path('piecesRechange')}}"><i class="fa fa-list-alt sidebar-nav-icon"></i> Piéces Rechange  </a>
+                                </li>
+
+                                <li>
+                                    <a href="#" class="sidebar-nav-submenu open"><i class="gi gi-shop sidebar-nav-icon"></i><i class=" fa fa-angle-left sidebar-nav-indicator  "></i>magasin</a>
+                                    <ul >
+                                        <li>
+                                            <a href="{{ path('ajouter_entree')}}"><i class="fa fa-plus-square-o sidebar-nav-icon"></i> Ajouter l'entrée </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('entrees')}}"><i class="fa fa-list-alt sidebar-nav-icon"></i> list d'entrées </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('bonsortie')}}"><i class="hi hi-export sidebar-nav-icon"></i> Sortie </a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+
+
+                            </ul>
+
+                        </li>
+                        <li>
+                            <a href="#" class="sidebar-nav-menu"><i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class=" hi hi-wrench sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Intervention</span></a>
+                            <ul>
+                                <li>
+                                    <a href="#" class="sidebar-nav-submenu open"><i class="gi gi-notes sidebar-nav-icon"></i><i class=" fa fa-angle-left sidebar-nav-indicator  "></i>Demande </a>
+                                    <ul >
+                                        <li>
+                                            <a href="{{ path('ajouter_demandeIntervention')}}"><i class="fa fa-plus-square-o sidebar-nav-icon"></i> Ajouter Demande  </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('demandeInterventions')}}"><i class="fa fa-list-alt sidebar-nav-icon"></i> demandes </a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#" class="sidebar-nav-submenu open"><i class="gi gi-blacksmith sidebar-nav-icon"></i><i class=" fa fa-angle-left sidebar-nav-indicator  "></i>Curative</a>
+                                    <ul >
+                                        <li>
+                                            <a href="{{ path('interventioncurative_ajouter_modifier')}}"><i class="fa fa-plus-square-o sidebar-nav-icon"></i> Ajouter Intervention  </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('interventionsCuratives')}}"><i class="fa fa-list-alt sidebar-nav-icon"></i> Interventions </a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+
+
+                                <li>
+                                    <a href="#" class="sidebar-nav-submenu open"><i class="gi gi-retweet sidebar-nav-icon"></i><i class=" fa fa-angle-left sidebar-nav-indicator  "></i>Preventive</a>
+                                    <ul >
+                                        <li>
+                                            <a href="{{ path('interventionp_ajouter_modifier')}}"><i class="fa fa-plus-square-o sidebar-nav-icon"></i> Ajouter Intervention  </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('interventionsPREVENTIVES')}}"><i class="fa fa-list-alt sidebar-nav-icon"></i> Interventions </a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+
+
+
+                                <li>
+                                    <a href="#" class="sidebar-nav-submenu open"><i class="gi gi-bin sidebar-nav-icon"></i><i class=" fa fa-angle-left sidebar-nav-indicator  "></i>Demontage</a>
+                                    <ul >
+                                        <li>
+                                            <a href="{{ path('ficheDemontage_ajouter_modifier')}}"><i class="fa fa-plus-square-o sidebar-nav-icon"></i> Ajouter Demontage  </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('ficheDemontage')}}"><i class="fa fa-list-alt sidebar-nav-icon"></i> Fiches Demontage  </a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- END Sidebar Navigation -->
+
+                    <!-- Sidebar Notifications -->
+
+
+                    <!-- Sidebar Notifications -->
+
+                    <!-- END Sidebar Notifications -->
+                </div>
+                <!-- END Sidebar Content -->
+            </div>
+            <!-- END Wrapper for scrolling functionality -->
+        </div>
+        <!-- END Main Sidebar -->
+        <!-- END Main Sidebar -->
+        <!-- END Main Sidebar -->
+
+        <!-- Main Container -->
+        <div id="main-container">
+
+            <header class="navbar navbar-default">
+                <!-- Left Header Navigation -->
+                <ul class="nav navbar-nav-custom">
+                    <!-- Main Sidebar Toggle Button -->
+                    <li>
+                        <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar');this.blur();">
+                            <i class="fa fa-bars fa-fw"></i>
+                        </a>
+                    </li>
+                    <!-- END Main Sidebar Toggle Button -->
+
+                    <!-- Template Options -->
+                    <!-- Change Options functionality can be found in js/app.js - templateOptions() -->
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="gi gi-settings"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-custom dropdown-options">
+                            <li class="dropdown-header text-center">Header Style</li>
+                            <li>
+                                <div class="btn-group btn-group-justified btn-group-sm">
+                                    <a href="javascript:void(0)" class="btn btn-primary" id="options-header-default">Light</a>
+                                    <a href="javascript:void(0)" class="btn btn-primary" id="options-header-inverse">Dark</a>
+                                </div>
+                            </li>
+                            <li class="dropdown-header text-center">Page Style</li>
+                            <li>
+                                <div class="btn-group btn-group-justified btn-group-sm">
+                                    <a href="javascript:void(0)" class="btn btn-primary" id="options-main-style">Default</a>
+                                    <a href="javascript:void(0)" class="btn btn-primary" id="options-main-style-alt">Alternative</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- END Template Options -->
+                </ul>
+                <!-- END Left Header Navigation -->
+
+                <!-- Search Form -->
+                <form action="page_ready_search_results.html" method="post" class="navbar-form-custom">
+                    <div class="form-group">
+                        <input type="text" id="top-search" name="top-search" class="form-control" placeholder="Search..">
+                    </div>
+                </form>
+                <!-- END Search Form -->
+
+                <!-- Right Header Navigation -->
+                <ul class="nav navbar-nav-custom pull-right">
+                    <!-- Alternative Sidebar Toggle Button -->
+                    <li>
+                        <!-- If you do not want the main sidebar to open when the alternative sidebar is closed, just remove the second parameter: App.sidebar('toggle-sidebar-alt'); -->
+                        <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar-alt', 'toggle-other');this.blur();">
+                            <i class="gi gi-share_alt"></i>
+                            <span class="label label-primary label-indicator animation-floating">4</span>
+                        </a>
+                    </li>
+                    <!-- END Alternative Sidebar Toggle Button -->
+
+                    <!-- User Dropdown -->
+
+                    <!-- END User Dropdown -->
+                </ul>
+                <!-- END Right Header Navigation -->
+            </header>
+
+            <!-- END Header -->
+            {% block body %}
+
+            <!-- Page content -->
+            <div id="page-content">
+                <!-- eCommerce Products Header -->
+
+                <!-- END eCommerce Products Header -->
+
+                <!-- Quick Stats -->
+
+                <!-- END Quick Stats -->
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                {% for message in app.flashes('error') %}
+                    <div class="alert alert-error">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+
+                <!-- All Products Block -->
+                <div class="block full">
+                    <!-- All Products Title -->
+                    <div class="block-title">
+                        <div class="block-options pull-right">
+                            <a href="javascript:void(0)" class="btn btn-alt btn-sm btn-default" data-toggle="tooltip" title="Settings"><i class="fa fa-cog"></i></a>
+                        </div>
+                        <h2><strong>PIECES RECHNAGE</strong> </h2>
+                    </div>
+                    <!-- END All Products Title -->
+
+                    <!-- All Products Content -->
+                    <table id="ecom-products" class="table table-bordered table-striped table-vcenter">
+                        <thead>
+                        <tr>
+                            <th class="text-center" style="width: 70px;">Id</th>
+                            <th class="hidden-xs text-center" width="50%"> Designation </th>
+                            <th class="text-right hidden-xs" hidden >Sous Famille</th>
+                            <th class="hidden-xs">Quantite</th>
+                            <th style="display:none;"></th>
+                            <th class="text-center">Action</th>
+
+
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for piece in pieces  %}
+                          <piece>
+
+                                        <tr>
+                                            <td class="text-center"><a href="{{ path('editpr',  { 'id':piece.id}) }}">{{piece.id}}</td>
+
+                                            <td >
+
+                                                    {{piece.designation}}
+                                            <td hidden>
+
+
+                                            </td>
+                                            <td class="hidden-xs">
+                                                <span class="label label-success"> {{ piece.quantite}}</span>
+                                            </td>
+                                            <td style="display:none;"></td>
+                                            <td class="text-center">
+                                                <div class="btn-group btn-group-xs">
+                                                    <a href="{{ path('editpr',{ 'id':piece.id}) }}" data-toggle="tooltip" title="" class="btn btn-default"  id="edit" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                                                    <a href="{{ path('deletepr',  { 'id':piece.id}) }}" data-toggle="tooltip" title="" class="btn btn-xs btn-danger" data-original-title="Delete"><i class="fa fa-times"></i></a>
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                          </piece>
+
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                    <!-- END All Products Content -->
+                </div>
+                <!-- END All Products Block -->
+            </div>
+            <!-- END Page Content -->
+
+            <!-- Footer -->
+            <footer class="clearfix">
+                <div class="pull-right">
+                    Crafted with <i class="fa fa-heart text-danger"></i> by <a href="https://1.envato.market/ydb" target="_blank">Elligy</a>
+                </div>
+                <div class="pull-left">
+                    <span id="year-copy"></span> &copy; <a href="https://1.envato.market/x4R" target="_blank"></a>
+                </div>
+            </footer>
+            <!-- END Footer -->
+        </div>
+        <!-- END Main Container -->
+    </div>
+    <!-- END Page Container -->
+</div>
+<!-- END Page Wrapper -->
+
+<!-- Scroll to top link, initialized in js/app.js - scrollToTop() -->
+
+<!-- END Modal Body -->
+</div>
+</div>
+</div>
+
+
+{% endblock %}
+<!-- END User Settings -->
+{% block javascripts %}
+    <script>
+        // When the user clicks on <div>, open the popup
+        function myFunction() {
+            var popup = document.getElementById("myPopupy");
+            popup.classList.toggle("show");
+        }
+    </script>
+    <!-- jQuery, Bootstrap.js, jQuery plugins and Custom JS code -->
+    <script src="{{ asset('asset/js/vendor/jquery.min.js') }}"></script>
+    <script src="{{ asset('asset/js/vendor/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('asset/js/plugins.js') }}"></script>
+    <script src="{{ asset('asset/js/app.js') }}"></script>
+    <script src="{{ asset('asset/js/vendor/modernizr.min.js')}}"></script>
+    <!-- Load and execute javascript code used only in this page -->
+    <script src="{{ asset('asset/js/pages/ecomProducts.js') }}"></script>
+    <script>$(function(){ EcomProducts.init(); });</script>
+    <script>
+        // When the user clicks on <div>, open the popup
+        function myFunction() {
+            var popup = document.getElementById("myPopup");
+            popup.classList.toggle("show");
+        }
+    </script>
+    <script>
+        // When the user clicks on <div>, open the popup
+        function myFunction() {
+            var popup = document.getElementById("myPopupy");
+            popup.classList.toggle("show");
+        }
+    </script>
+{% endblock %}
+
+
+</body>
+
+</html>

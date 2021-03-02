@@ -1,0 +1,116 @@
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('asset/css/plugins.css') }}">
+    <link rel="stylesheet" href="{{ asset('asset/css/bootstrap.min.css') }}">
+
+    <!-- Related styles of various icon packs and plugins -->
+    <link rel="stylesheet" href="{{ asset('asset/css/plugins.css') }}">
+
+    <!-- The main stylesheet of this template. All Bootstrap overwrites are defined in here -->
+    <link rel="stylesheet" href="{{ asset('asset/css/main.css') }}">
+
+
+
+    <!-- END Stylesheets -->
+    <!-- Modernizr (browser feature detection library) -->
+    <script src="{{ asset('asset/js/vendor/modernizr.min.js')}}"></script>
+    <link rel="stylesheet" href="{{ asset('asset/css/imprimer.css') }}">
+
+{% endblock %}
+{% block body %}
+<div id="invoice">
+
+    <div class="toolbar hidden-print">
+        <div class="text-right">
+            <button id="printInvoice" class="btn btn-info"><i class="fa fa-print"></i> Imprimer</button>
+
+        </div>
+        <hr>
+    </div>
+    <div class="invoice overflow-auto">
+        <div style="min-width: 10px">
+            <header>
+                <div class="row">
+                    <div class="col">
+                        <a target="_blank" href="https://lobianijs.com">
+                            <img src="{{asset('asset/img/m.png') }}"   height="90px" width="90px" data-holder-rendered="true" />
+                        </a>
+                    </div>
+                    <div class="col company-details">
+                        <h2 class="name">
+                            <a target="_blank" href="">
+                                Service  De Maintenance
+                            </a>
+                        </h2>
+
+                    </div>
+                </div>
+            </header>
+            <main>
+                <div class="row contacts">
+                    <div class="col invoice-to">
+                        <div class="text-gray-light"><strong>Pour:</strong> </div>
+                        <h2 class="to">{{interventionpreventive.machine.libelle}}</h2>
+                        <div class="address"></div>
+                    </div>
+
+                    <div class="col invoice-details">
+                        <h1 class="invoice-id"> BON DE SORTIE  № :{{ interventionpreventive.id }} </h1>
+                        <h2> Pour intervention {{interventionpreventive.titre }}</h2>
+                    </div>
+
+                </div>
+                <h2 class="piece"> Piéces de rechanges </h2>
+                <table  width="50%" border="0" cellspacing="0" cellpadding="0">
+                    <thead>
+                    <tr>
+                        <td>numéro</td>
+                        <td class="text-left">PIECE</td>
+                        <td class="text-right">QUANTITE</td>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for p in ppi%}
+                        <tr>
+                            <td class="no" width="1%"> {{ loop.index }}</td>
+                            <td class="text-left" > {{p.piece.designation  }}</td>
+                            <td class="total" width="2%">{{p.quantite  }}</td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+
+                    <tfoot>
+                    </tfoot>
+                </table>
+
+                <div class="notices">
+                    <div>Singnature</div>
+                    <div class="notice">Magasinier.</div>
+                </div>
+            </main>
+            {% endblock %}
+            <footer>
+            </footer>
+        </div>
+        <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
+        <div></div>
+    </div>
+</div>
+{% block javascripts %}
+    <!-- jQuery, Bootstrap.js, jQuery plugins and Custom JS code -->
+    <script src="{{ asset('asset/js/vendor/jquery.min.js') }}"></script>
+    <script src="{{ asset('asset/js/vendor/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('asset/js/plugins.js') }}"></script>
+    <script src="{{ asset('asset/js/app.js') }}"></script>
+    <script src="{{ asset('asset/js/vendor/modernizr.min.js')}}"></script>
+    <!-- Load and execute javascript code used only in this page -->
+    <script src="{{ asset('asset/js/pages/ecomProducts.js') }}"></script>
+    <script>$(function(){ EcomProducts.init(); });</script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="{{ asset('asset/js/imprimer.js') }}"></script>
+{% endblock %}

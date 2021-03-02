@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme  formfr 'formulaire.html.twig' %}
+
+
+
+{% block title %}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style type="text/css">
+        .jqstooltip
+        { width: auto !important;
+            height: auto !important;
+            position: absolute;
+            left: 0px;top: 0px;visibility: hidden;
+            background: #000000;
+            color: white;
+            font-size: 11px;
+            text-align: left;
+            white-space: nowrap;
+            padding: 5px;z-index: 10000;
+        }
+        { color: white;font: 10px arial, san serif;text-align: left;}
+        .jqsfield
+        { color: white;
+            font: 10px arial, san serif;
+            text-align: left;}
+        #page-content{
+            margin-left:0%;
+
+        }
+        #ecom-products{
+            width: 85%;
+            text-align:right;
+            right:0;
+            margin-left:11%;
+
+
+        }
+        .contour{
+
+            margin-left:11%;
+        }
+        .col-md-9 col-md-offset-3{
+
+            margin-left:10%;
+        }
+        .btn btn-sm btn-primary{
+
+            margin-left:12%;
+        }
+    </style>
+
+{% endblock %}
+
+
+  {% block body %}
+
+
+      <div id="page-content">
+
+          <div class="block full">
+
+              <div class="block">
+                  <!-- General Data Title -->
+                  <div class="block-title">
+                      <h2><i class="fa fa-pencil"></i> <strong>AJOUTER</strong> FOURNISSEUR </h2>
+                  </div>
+
+                  <div class="contour">
+                      {% if is_granted('ROLE_ADMIN')%}
+                      {{  form_start(formfr)  }}
+
+                      {{ form_row(formfr.nom,{'attr': {'placeholder' : "" }}) }}
+                      {{ form_row (formfr.adress ,{ 'label' : "Adresse" })  }}
+                      {{ form_row (formfr.tel ,{'attr': {'placeholder' : "" }})  }}
+
+                      <div class="form-group form-actions">
+                          <div class="col-md-9 col-md-offset-3">
+                              {% if editMode %}
+                                  <button type="submit" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i><strong>ENREGISTER</strong> </button>
+                              {% else %}
+                                  <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i><strong>AJOUTER</strong></button>
+                              {% endif %}
+                              {{  form_end(formfr)  }}
+{% endif %}
+
+                          </div>
+
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+      </div>
+      </div>
+
+
+
+  {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assset/js/date_validator') }}" ></script>
+{% endblock %}

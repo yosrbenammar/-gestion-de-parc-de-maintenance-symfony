@@ -1,0 +1,148 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: LENOVO
+ * Date: 22/05/2020
+ * Time: 13:40
+ */
+
+namespace App\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ORM\Mapping as ORM;
+use app\src\Entity\Traits\InterventionTrait;
+
+/**
+*  @ORM\Table
+* @ORM\Entity
+*/
+class Curative
+{ use InterventionTrait;
+    /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     * * @ORM\GeneratedValue(strategy="AUTO")
+     */
+
+    protected $id;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\DemandeIntervention", cascade={"persist", "remove"})
+     */
+    private $demandeIntervention;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Vehicule", inversedBy="curatives")
+     */
+    private $vehicule;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\SousTraitant", inversedBy="curatives")
+     */
+    private $sousTraitant;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Technicien", inversedBy="curatives")
+     */
+    private $technicien;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\PieceRechange", inversedBy="curatives")
+     */
+    private $piece;
+
+    public function __construct()
+    {
+        $this->technicien = new ArrayCollection();
+        $this->piece = new ArrayCollection();
+    }
+
+    public function getDemandeIntervention(): ?DemandeIntervention
+    {
+        return $this->demandeIntervention;
+    }
+
+    public function setDemandeIntervention(?DemandeIntervention $demandeIntervention): self
+    {
+        $this->demandeIntervention = $demandeIntervention;
+
+        return $this;
+    }
+
+    public function getVehicule(): ?Vehicule
+    {
+        return $this->vehicule;
+    }
+
+    public function setVehicule(?Vehicule $vehicule): self
+    {
+        $this->vehicule = $vehicule;
+
+        return $this;
+    }
+
+    public function getSousTraitant(): ?SousTraitant
+    {
+        return $this->sousTraitant;
+    }
+
+    public function setSousTraitant(?SousTraitant $sousTraitant): self
+    {
+        $this->sousTraitant = $sousTraitant;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Technicien[]
+     */
+    public function getTechnicien(): Collection
+    {
+        return $this->technicien;
+    }
+
+    public function addTechnicien(Technicien $technicien): self
+    {
+        if (!$this->technicien->contains($technicien)) {
+            $this->technicien[] = $technicien;
+        }
+
+        return $this;
+    }
+
+    public function removeTechnicien(Technicien $technicien): self
+    {
+        if ($this->technicien->contains($technicien)) {
+            $this->technicien->removeElement($technicien);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PieceRechange[]
+     */
+    public function getPiece(): Collection
+    {
+        return $this->piece;
+    }
+
+    public function addPiece(PieceRechange $piece): self
+    {
+        if (!$this->piece->contains($piece)) {
+            $this->piece[] = $piece;
+        }
+
+        return $this;
+    }
+
+    public function removePiece(PieceRechange $piece): self
+    {
+        if ($this->piece->contains($piece)) {
+            $this->piece->removeElement($piece);
+        }
+
+        return $this;
+    }

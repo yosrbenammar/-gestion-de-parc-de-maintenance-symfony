@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{%  block body  %}
+    <employe>
+
+
+           {{ employe.nom }}
+          {{ employe.prenom }}
+         {{ employe.adresse}}
+            {{ employe.fonction }}
+         {{ employe.tel }}
+           {{ employe.datenaissance|  date('d/m/y')}}
+          {{ employe.daterecrutement|  date('d/m/y')}}
+
+    </employe>
+{% endblock %}

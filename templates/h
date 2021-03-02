@@ -1,0 +1,147 @@
+{% extends "base.html.twig" %}
+
+
+{% block title %}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style type="text/css">
+        .jqstooltip
+        { width: auto !important;
+            height: auto !important;
+            position: absolute;
+            left: 0px;top: 0px;visibility: hidden;
+            background: #000000;
+            color: white;
+            font-size: 11px;
+            text-align: left;
+            white-space: nowrap;
+            padding: 5px;z-index: 10000;
+        }
+        { color: white;font: 10px arial, san serif;text-align: left;}
+        .jqsfield
+        { color: white;
+            font: 10px arial, san serif;
+            text-align: left;}
+         #page-content{
+             margin-left:0%;
+
+                      }
+        #ecom-products{
+            width: 85%;
+            text-align:right;
+            right:0;
+            margin-left:11%;
+
+        }
+        #emp{
+            margin-left:11%;
+
+        }
+        #ecom-orders_filter{
+         margin-left:30%;
+         width: 35%;
+            }
+
+    </style>
+
+{% endblock %}
+
+
+{% block body %}
+
+
+   <div id="page-content">
+
+       <div class="block full">
+                            <!-- All Products Title -->
+                            <div class="block-title">
+                                <div class="block-options pull-right">
+                                    <a href="javascript:void(0)" class="btn btn-alt btn-sm btn-default" data-toggle="tooltip" title="" data-original-title="Settings"><i class="fa fa-cog"></i></a>
+                                </div>
+                                <h2><strong>tous</strong> employés</h2>
+                            </div>
+                                 <div class="row">
+
+                                    <div class="col-sm-6 col-xs-7" id="recherche">
+                                     <div id="ecom-orders_filter" class="dataTables_filter">
+                                          <label>
+                                         <div class="input-group">
+                                         <form method="post">
+
+                                           <input type="search"  name="nom" class="form-control" placeholder="Search" aria-controls="ecom-orders">
+                                            <button type="submit" class="btn btn-sm btn-warning">chercher </button>
+
+                                           </form></div>
+                                        </label>
+
+
+
+                                     </div>
+                                 </div>
+                                 </div>
+
+          <div class="block">
+
+              <table id="ecom-products" class="table table-bordered table-striped table-vcenter dataTable no-footer" role="grid" aria-describedby="ecom-products_info">
+                <thead>
+                   <tr role="row">
+
+                   <th class="text-center sorting_desc" style="width: 69px;" tabindex="0" aria-controls="ecom-products" rowspan="1" colspan="1" aria-sort="descending" aria-label="ID: activate to sort column ascending">Id</th>
+                   <th class="sorting" tabindex="0" aria-controls="ecom-products" rowspan="1" colspan="1" aria-label="Product Name: activate to sort column ascending" style="width: 104px;">Nom</th>
+                    <th class="sorting" tabindex="0" rowspan="1" colspan="1" style="width: 100px;">Prénom</th>
+                    <th class="text-right hidden-xs sorting" tabindex="0" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 100px;">Adress</th>
+                    <th class="hidden-xs text-center sorting" tabindex="0" rowspan="1" colspan="1" style="width: 130px;">fonction</th>
+                    <th class="sorting" rowspan="1" colspan="1" aria-label="Action" style="width: 110px;">Téléphone</th>
+                    <th class="sorting" rowspan="1" colspan="1" aria-label="Action" style="width: 110px;">Date Naissance</th>
+                    <th class="sorting" rowspan="1" colspan="1" aria-label="Action" style="width: 110px;">Date Recrutement</th>
+                    <th class="text-center sorting_disabled" rowspan="1" colspan="1" aria-label="Action" style="width: 156px;">Action</th>
+                   </tr>
+                </thead>
+
+
+                  <tbody>
+
+                  {% for employe in tous_employe  %}
+                    <employe>
+                        <tr  role="row" class="odd">
+                        <td class="text-center sorting_1"><strong>{{ employe.id }}</strong></td>
+
+                            <th style="width: 40px;">{{ employe.nom }}</th>
+                            <th style="width: 50px;">{{ employe.prenom }}</th>
+                            <th style="width: 50px;">{{ employe.adresse}}</th>
+                            <th  class="hidden-xs" style="width: 50px;">{{ employe.fonction }}</th>
+                            <th style="width: 50px;"> {{ employe.tel }}</th>
+                            <th style="width: 10px;">{{ employe.datenaissance|  date('d/m/y')}}</th>
+                            <th style="width: 10px;"> {{ employe.daterecrutement|  date('d/m/y')}}</th>
+                            <td class="text-center">
+                                            <div class="btn-group btn-group-xs">
+                                                <a href="{{ path('edit',  { 'id':employe.id}) }}" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                                                <a href="{{ path('delete',  { 'id':employe.id}) }}" data-toggle="tooltip" title="" class="btn btn-xs btn-danger" data-original-title="Delete"><i class="fa fa-times"></i></a>
+                                            </div>
+
+                         </tr>
+
+                    </employe>
+                {% endfor %}
+                  </tbody>
+                 </table>
+
+              <div class="row"><div class="col-sm-5 hidden-xs"><div class="dataTables_info" id="ecom-products_info" role="status" aria-live="polite">
+              <strong>1</strong>-<strong>20</strong> of <strong>60</strong></div></div><div class="col-sm-7 col-xs-12 clearfix">
+              <div class="dataTables_paginate paging_bootstrap" id="ecom-products_paginate"><ul class="pagination pagination-sm remove-margin">
+              <li class="prev disabled"><a href="javascript:void(0)"><i class="fa fa-chevron-left"></i> </a></li>
+              <li class="active"><a href="javascript:void(0)">1</a></li>
+              <li><a href="javascript:void(0)">2</a></li><li><a href="javascript:void(0)">3</a></li>
+              <li class="next"><a href="javascript:void(0)"> <i class="fa fa-chevron-right"></i></a></li></ul></div>
+              </div>
+           </div>
+        </div>
+  {% endblock %}
+
+
+   {% block javascripts %}
+     {{ parent() }}
+      <script src="{{ asset('asset/js/pages/ecomProducts.js') }}"></script>
+      <script>$(function(){ EcomProducts.init(); });</script>
+   {% endblock %}

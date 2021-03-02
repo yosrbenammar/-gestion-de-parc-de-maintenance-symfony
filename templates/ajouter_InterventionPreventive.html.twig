@@ -1,0 +1,212 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme  formip 'formulaire.html.twig' %}
+
+
+
+{% block title %}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style type="text/css">
+        .jqstooltip {
+            width: auto !important;
+            height: auto !important;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            visibility: hidden;
+            background: #000000;
+            color: white;
+            font-size: 11px;
+            text-align: left;
+            white-space: nowrap;
+            padding: 5px;
+            z-index: 10000;
+        }
+
+        {
+            color: white
+        ;
+            font: 10px arial, san serif
+        ;
+            text-align: left
+        ;
+        }
+        .jqsfield {
+            color: white;
+            font: 10px arial, san serif;
+            text-align: left;
+        }
+
+        #page-content {
+            margin-left: 0%;
+
+        }
+
+        #ecom-products {
+            width: 85%;
+            text-align: right;
+            right: 0;
+            margin-left: 11%;
+
+        }
+
+        .contour {
+
+            margin-left: 11%;
+        }
+
+        .col-md-9 col-md-offset-3 {
+
+            margin-left: 10%;
+        }
+
+        .btn btn-sm btn-primary {
+
+            margin-left: 12%;
+        }
+
+        .f1 {
+            position: relative;
+            min-height: 1px;
+            padding-left: 10px;
+            padding-right: 15px;
+            width: 40%;
+        }
+
+        .f2 {
+            width: 10%;
+            margin-right: 0%;
+            margin-top: -50%;
+            width: 50%;
+            float: right;
+            box-sizing: border-box;
+        }
+
+    </style>
+
+{% endblock %}
+
+
+  {% block body %}
+
+
+      <div id="page-content">
+
+          <div class="block full">
+
+              <div class="block">
+                  <!-- General Data Title -->
+                  <div class="block-title">
+                      {% if editMode %}
+                          <h2><i class="fa fa-pencil"></i> <strong>Modifier</strong>INTERVENTION PREVENTIVE</h2>
+                      {% else %}
+                          <h2><i class="fa fa-pencil"></i> <strong>AJOUTER</strong> INTERVENTION PREVENTIVE</h2>
+                      {% endif %}
+
+                  </div>
+
+                  <div class="contour">
+                      {% if is_granted('ROLE_TECH')%}
+                      {{ form_start(formip) }}
+                      <div class="f1">
+                          {{ form_row(formip.titre ,{'attr': {'placeholder' : "" }}) }}
+                          {{ form_row(formip.technicien) }}
+                          {{ form_row(formip.desription ,{'attr': {'placeholder' : "" } }) }}
+                          {{ form_row(formip.machine) }}
+                          {{ form_row(formip.vehicule ) }}
+                          {{ form_row(formip.sousTraitant) }}
+                          {{ form_row(formip.dateFin ,{'attr': {'placeholder' : "" }}) }}
+                      </div>
+
+                      <div class="f2">
+                          <div id="repeater">
+                              <!-- Repeater Heading -->
+                              <div class="repeater-heading">
+                                  <h5 class="pull-left"></h5>
+                                  <button type="button" class="btn btn-primary pt-5 pull-right repeater-add-btn">
+                                      Add
+                                  </button>
+                              </div>
+                              <div class="items" data-group="preventive[pieces]">
+                                  <!-- Repeater Content -->
+                                  <div class="item-content">
+                                      <div class="form-group">
+                                          <label class="col-lg-2 control-label">Pièce de rechange</label>
+                                          <div class="col-lg-10">
+                                              <select class="form-control " data-name="piece_id">
+                                                  <option value="">---- Aucun ----</option>
+                                                  {% for piece in pieces %}
+                                                      <option value="{{ piece.id }}">{{ piece.designation }}</option>
+                                                  {% endfor %}
+                                              </select>
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label class="col-lg-2 control-label">Quantité</label>
+                                          <div class="col-lg-10">
+                                              <input type="text" class="form-control" data-name="quantity">
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <!-- Repeater Remove Btn -->
+                                  <div class="pull-right repeater-remove-btn">
+                                      <button type="button" class="btn btn-danger remove-btn">
+                                          Remove
+                                      </button>
+                                  </div>
+
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="form-group form-actions">
+                          <div class="col-md-9 col-md-offset-3">
+                              {% if editMode %}
+                                  <button type="submit" class="btn btn-sm btn-warning"><i
+                                              class="fa fa-repeat"></i><strong>ENREGISTER</strong></button>
+                              {% else %}
+                                  <button type="submit" class="btn btn-sm btn-primary"><i
+                                              class="fa fa-floppy-o"></i><strong>AJOUTER</strong></button>
+                              {% endif %}
+                          </div>
+                      </div>
+                      {{ form_end(formip) }}
+              {% endif %}
+                  </div>
+              </div>
+
+          </div>
+      </div>
+
+
+
+  {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $("#repeater").createRepeater({
+            showFirstItemToDefault: true,
+        });
+        $("#preventive_technicien").on('change', function () {
+            $('#preventive_sousTraitant').val('');
+            $('#preventive_sousTraitant').trigger('change');
+            if (!$(this).val()) {
+                $($('#preventive_sousTraitant').parents('.form-group').get(0)).show();
+            } else {
+                $($('#preventive_sousTraitant').parents('.form-group').get(0)).hide();
+            }
+        });
+
+    </script>
+    <script src="{{ asset('assset/js/date_validator') }}"></script>
+
+
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+
+{% endblock %}

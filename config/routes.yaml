@@ -1,0 +1,7 @@
+#index:
+#    path: /
+#    controller: Controller\DefaultController::index
+fos_user.registration:
+  path: /register
+  defaults:
+    _controller: App\Controller\RegistrationController::registerAction

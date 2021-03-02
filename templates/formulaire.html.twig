@@ -1,0 +1,93 @@
+
+{% block title %}{% endblock %}
+
+{% block stylesheets %}
+
+    <style type="text/css">
+
+        #emp{
+            margin-left:11%;
+
+        }
+        .form-control{
+            width:60%;
+        }
+
+    </style>
+
+{% endblock %}
+
+
+{% block body %}
+
+
+
+               <!-- END General Data Title -->
+
+               <!-- General Data Content -->
+               <form action=" {{ path('ajouter_employe') }}" name="form" method="post" class="form-horizontal form-bordered">
+
+
+                   <div  class="form-group" >
+                       <label for="form_nom" class="required  col-md-3 control-label required">Nom</label>
+                       <input class="form-control" type="text" id="form_nom" name="form[nom]" required="required" maxlength="20" placeholder="nom employé"  >
+                   </div>
+                   <div  class="form-group" >
+                       <label class="col-md-3 control-label required" for="form_prenom" >Prenom</label>
+                       <input  class="form-control" type="text" id="form_prenom" name="form[prenom]" required="required" maxlength="20" placeholder="prénom employé" >
+                   </div>
+                   <div  class="form-group" >
+                       <label  class="col-md-3 control-label required" for="form_fonction" >Fonction</label>
+                       <input  class="form-control" type="text" id="form_fonction" name="form[fonction]" required="required" maxlength="20" placeholder=" ingénieur mécanique " >
+                   </div>
+                   <div  class="form-group" >
+                       <label class="col-md-3 control-label required" for="form_adresse" >Adresse </label>
+                       <input class="form-control" type="text" id="form_adresse" name="form[adresse]" required="required" maxlength="30" placeholder="ville-région-rue-code postal" >
+                   </div>
+                   <<div  class="form-group" >
+                       <label class="col-md-3 control-label required" for="form_tel required"> Tel</label>
+                       <input  class="form-control" type="tel" id="form_tel" name="form[tel]" required="required" maxlength="10" placeholder="+216 22 222 222" >
+                   </div>
+                   <div  class="form-group" >
+                       <label class="col-md-3 control-label required">Date naissance</label>
+                       <div id="form_date_naissance">
+                           <select id="form_date_naissance_month" name="form[date_naissance][month]">
+                               <option value="1" selected="selected">Jan</option><option value="2">Feb</option>
+                               <option value="3">Mar</option><option value="4">Apr</option><option value="5">May</option>
+                               <option value="6">Jun</option><option value="7">Jul</option>
+                               <option value="8">Aug</option><option value="9">Sep</option>
+                               <option value="10">Oct</option><option value="11">Nov</option>
+                               <option value="12">Dec</option>
+                           </select>
+                           <select id="form_date_naissance_day" name="form[date_naissance][day]">
+                               <option value="1" selected="selected">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select><select id="form_date_naissance_year" name="form[date_naissance][year]"><option value="" selected="selected">2015</option><option value="2016">2016</option><option value="2017">2017</option><option value="2018">2018</option><option value="2019">2019</option><option value="2020">2020</option><option value="2021">2021</option><option value="2022">2022</option><option value="2023">2023</option><option value="2024">2024</option><option value="2025">2025</option></select></div></div><div>
+                       <label  class=" col-md-3 control-label required">Date recrutement</label>
+                   </div>
+                       <div  class="form-group" >
+
+                       <div id="form_date_recrutement">
+                           <select id="form_date_recrutement_month" name="form[date_recrutement][month]">
+                               <option value="1" selected="selected">Jan</option><option value="2">Feb</option><option value="3">Mar</option><option value="4">Apr</option><option value="5">May</option><option value="6">Jun</option><option value="7">Jul</option><option value="8">Aug</option><option value="9">Sep</option><option value="10">Oct</option><option value="11">Nov</option><option value="12">Dec</option></select>
+                           <select id="form_date_recrutement_day" name="form[date_recrutement][day]"><option value="1" selected="selected">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select><select id="form_date_recrutement_year" name="form[date_recrutement][year]"><option value="" selected="selected">2015</option><option value="2016">2016</option><option value="2017">2017</option><option value="2018">2018</option><option value="2019">2019</option><option value="2020">2020</option><option value="2021">2021</option><option value="2022">2022</option><option value="2023">2023</option><option value="2024">2024</option><option value="2025">2025</option></select></div></div><input type="hidden" id="form__token" name="form[_token]" value="kvM-ECyCU5QDDwclrDzSPd0OA5uIq_CYg6eJj-qMgXI">
+                   <div class="form-group form-actions">
+                       <div class="col-md-9 col-md-offset-3">
+                           {% if editMode %}
+                           <button type="reset" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i>
+                               {% else %}
+                               <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
+                           Reset</button>
+                           {% endif %}
+                       </div>
+                   </div>
+
+                   </form>
+               <!-- END General Data Content -->
+            </div>
+
+
+
+       </div>
+   </div>
+  {% endblock %}
+
+

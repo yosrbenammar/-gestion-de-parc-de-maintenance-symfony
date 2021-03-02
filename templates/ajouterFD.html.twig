@@ -1,0 +1,168 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme  formFD 'formulaire.html.twig' %}
+
+
+
+{% block title %}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style type="text/css">
+        .jqstooltip
+        { width: auto !important;
+            height: auto !important;
+            position: absolute;
+            left: 0px;top: 0px;visibility: hidden;
+            background: #000000;
+            color: white;
+            font-size: 11px;
+            text-align: left;
+            white-space: nowrap;
+            padding: 5px;z-index: 10000;
+        }
+        { color: white;font: 10px arial, san serif;text-align: left;}
+        .jqsfield
+        { color: white;
+            font: 10px arial, san serif;
+            text-align: left;}
+        #page-content{
+            margin-left:0%;
+
+        }
+        #ecom-products{
+            width: 85%;
+            text-align:right;
+            right:0;
+            margin-left:11%;
+
+
+        }
+        .contour{
+
+            margin-left:11%;
+        }
+        .col-md-9 col-md-offset-3{
+
+            margin-left:10%;
+        }
+        .btn btn-sm btn-primary{
+
+            margin-left:12%;
+        }
+    </style>
+
+{% endblock %}
+
+
+{% block body %}
+
+
+    <div id="page-content">
+
+        <div class="block full">
+
+            <div class="block">
+                <!-- General Data Title -->
+                <div class="block-title">
+                    {% if editMode %}
+                        <h2><i class="fa fa-pencil"></i> <strong>Modifier</strong>FICHE DEMONTAGE</h2>
+                    {% else %}
+                        <h2><i class="fa fa-pencil"></i> <strong>AJOUTER</strong>FICHE DEMONTAGE</h2>
+                    {% endif %}
+
+                </div>
+
+                <div class="contour">
+                    {% if is_granted('ROLE_TECH')%}
+                    {{  form_start(formFD)  }}
+                    {{ form_row(formFD.Intervention)}}
+                    {{ form_row(formFD.dateFin)}}
+
+                    <div id="repeater">
+                        <!-- Repeater Heading -->
+                        <div class="repeater-heading">
+                            <h5 class="pull-left"></h5>
+                            <button type="button" class="btn btn-primary pt-5 pull-right repeater-add-btn">
+                                Add
+                            </button>
+                        </div>
+                        <div class="clearfix"></div>
+                        <!-- Repeater Items -->
+                        <div class="items" data-group="fiche_demontage[pieces]">
+                            <!-- Repeater Content -->
+                            <div class="item-content">
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label"> <a href="{{ path('ajouter_pieceRechange')}}">Pièces de rechange</label>
+                                </a> <div class="col-lg-10">
+                                        <select class="form-control" data-name="idPiece">
+                                            <option value="">---- Aucun ----</option>
+                                            {% for piece in pieces %}
+                                                <option value="{{ piece.id }}">{{ piece.designation }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">Quantité</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" class="form-control" data-name="quantity">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Repeater Remove Btn -->
+                            <div class="pull-right repeater-remove-btn">
+                                <button type="button"  class="btn btn-danger remove-btn">
+                                    Remove
+                                </button>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group form-actions">
+                        <div class="col-md-9 col-md-offset-3">
+                            {% if editMode %}
+                                <button type="submit" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i><strong>ENREGISTER</strong> </button>
+                            {% else %}
+                                <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i><strong>AJOUTER</strong></button>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    {{  form_end(formFD)  }}
+                {% endif %}
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    {#<script src="{{ asset('assset/js/date_validator') }}" ></script>#}
+
+    <script>
+        $("#repeater").createRepeater({
+            showFirstItemToDefault: true,
+        });
+        // $("#formic_sousTraitant").onchange(function()
+        // {
+        //
+        //     if(($this).val() !==0)
+        // {
+        //     $("#formic_technicien").hide()
+        //
+        // }
+        // });
+    </script>
+
+{% endblock %}

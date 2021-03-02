@@ -1,0 +1,5 @@
+fos_user:
+  resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+fos_user_registration_register:
+  path:      /inscription
+  defaults: { _controller: App\Controller\RegistrationController::registerAction, abstract: true }
